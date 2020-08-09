@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# API key
+*api_key*
+
+# Generated files
+*.mp4
+*.mp3
+
+# Do not ignore .gitkeep
+!downloads/.gitkeep
