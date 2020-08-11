@@ -44,5 +44,5 @@ for base_filepath in target_files:
             ))
             wave_write.writeframes(picked_data)
             wave_write.close()
-    os.remove(base_filepath)
+    # os.remove(base_filepath)
 print("Done.")
