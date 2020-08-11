@@ -36,7 +36,7 @@ for base_filepath in target_files:
     for t in range(0, len(data_raw), start_frame_offset):
         file_count += 1
         picked_data = data_raw[t:t+unit_nframes]
-        output_filename = os.path.join(output_dir, f"s{base_filename}_{file_count:09}.wav")
+        output_filename = os.path.join(output_dir, f"{base_filename}_{file_count:09}.wav")
         with wave.open(output_filename, "wb") as wave_write:
             wave_write.setparams((
                 params.nchannels, params.sampwidth, params.framerate,
