@@ -2,6 +2,7 @@ from apiclient.discovery import build
 from api_key import api_key
 from pytube import YouTube
 from pprint import pprint
+import sys
 
 
 def get_videos_search(keyword):
@@ -10,7 +11,7 @@ def get_videos_search(keyword):
     youtube_res = youtube_query.execute()
     return youtube_res.get('items', [])
 
-result = get_videos_search('ポケモン サウンド')
+result = get_videos_search(sys.argv[1])
 for item in result:
     if item['id']['kind'] == 'youtube#video':
         title = item['snippet']['title']
