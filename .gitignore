@@ -134,6 +134,7 @@ dmypy.json
 # Generated files
 *.mp4
 *.mp3
+*.wav
 
 # Do not ignore .gitkeep
 !downloads/.gitkeep
