@@ -18,20 +18,14 @@ def wav_to_array(file):
     return song_arr
 
 import time
-files = list(glob("./output/*.wav"))[::4]
+files = list(glob("./output/*.wav"))[::20]
 X = np.array([wav_to_array(file) for file in files])
-X = X.reshape((X.shape[0], X.shape[1], 1))
+# X = X.reshape((X.shape[0], X.shape[1], 1))
 
 filenames = [os.path.basename(file) for file in files]
 labels = [int(filename[0]) for filename in filenames]
-print(labels)
-print(len(files))
 outputs = 2
 y = np.array([np.identity(outputs)[l] for l in labels])
-print(X.shape)
-print(y.shape)
-print(y)
-
 
 random_state = 42
 train_X, test_X = X[50:], X[:50]
@@ -40,18 +34,19 @@ train_y, test_y = y[50:], y[:50]
 
 features = train_X.shape[1]
 
-batch_size = 50
+batch_size = 1
+return_sequences = True
+hidden = 32
 model = Sequential()
-model.add(InputLayer(input_shape=(features, 1), name='x_inputs'))
-model.add(LSTM(256,
-              input_shape=(1, features),
+model.add(InputLayer(input_shape=(1, features), name='x_inputs'))
+model.add(LSTM(hidden,
               batch_size=batch_size,
-              #output_shape=(None, dims),
-              return_sequences=True,
+              return_sequences=return_sequences,
               activation='tanh'))
-model.add(LSTM(256, return_sequences=True, activation="sigmoid"))
-model.add(LSTM(256, return_sequences=True, activation="selu"))
-model.add(Dense(256))
+model.add(LSTM(hidden, return_sequences=return_sequences, activation="sigmoid"))
+model.add(LSTM(hidden, return_sequences=return_sequences, activation="selu"))
+# model.add(Dense(hidden))
+model.add(Dense(hidden))
 model.add(Dense(outputs))
 model.compile(optimizer='sgd',
               loss='categorical_crossentropy',
